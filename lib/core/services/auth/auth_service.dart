@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_chat_cod3r/core/models/chat_user.dart';
 
 abstract class AuthService {
@@ -7,10 +8,10 @@ abstract class AuthService {
   Stream<ChatUser?> get userChanges;
 
   Future<void> signup(
-    String name,
+    String nome,
     String email,
     String password,
-    File image,
+    File? image,
   );
 
   Future<void> login(

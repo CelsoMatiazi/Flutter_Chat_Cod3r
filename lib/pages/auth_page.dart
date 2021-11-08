@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_chat_cod3r/components/auth_form.dart';
 import 'package:flutter_chat_cod3r/core/models/auth_form_data.dart';
-
+import 'package:flutter_chat_cod3r/core/services/auth/auth_mock_service.dart';
+import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -11,51 +11,54 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-
   bool _isLoading = false;
 
-  Future<void> _handleDubmit(AuthFormData formData) async{
-
-    try{
+  Future<void> _handleSubmit(AuthFormData formData) async {
+    try {
       setState(() => _isLoading = true);
 
-      if(formData.isLogin){
-        //Login
-      }else{
-        //Signup
+      if (formData.isLogin) {
+        // Login
+        await AuthMockService().login(
+          formData.email,
+          formData.password,
+        );
+      } else {
+        // Signup
+        await AuthMockService().signup(
+          formData.name,
+          formData.email,
+          formData.password,
+          formData.image,
+        );
       }
-
-    }catch(error){
-      //TRATAR ERRO!!
-    }finally{
+    } catch (error) {
+      // Tratar erro!
+    } finally {
       setState(() => _isLoading = false);
     }
-
-    debugPrint(formData.email);
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         children: [
           Center(
             child: SingleChildScrollView(
-              child: AuthForm(onSubmit: _handleDubmit),
+              child: AuthForm(onSubmit: _handleSubmit),
             ),
           ),
-
-          if(_isLoading)
-          Container(
-            decoration: const BoxDecoration(
-              color: Color.fromRGBO(0, 0, 0, .5),
+          if (_isLoading)
+            Container(
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(0, 0, 0, 0.5),
+              ),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
         ],
       ),
     );

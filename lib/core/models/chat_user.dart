@@ -1,6 +1,4 @@
-
-class ChatUser{
-
+class ChatUser {
   final String id;
   final String name;
   final String email;
@@ -11,7 +9,5 @@ class ChatUser{
     required this.name,
     required this.email,
     required this.imageURL,
-
   });
-
 }

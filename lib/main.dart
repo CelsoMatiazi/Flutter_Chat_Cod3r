@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_cod3r/pages/auth_or_app_page.dart';
 import 'package:provider/provider.dart';
-
 import 'core/services/notification/chat_notification_service.dart';
 
 void main() {
